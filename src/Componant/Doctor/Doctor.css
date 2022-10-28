@@ -1,0 +1,81 @@
+.fullbody {
+  padding: 50px;
+}
+img {
+  height: 300px;
+  width: 300px;
+}
+
+.name {
+  text-align: center;
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin: 20px 0;
+  color: #456424;
+}
+.row-4 .write img {
+  width: 100%;
+  border: solid #698f3f 5px;
+  border-radius: 10px;
+}
+.write {
+  /* border: solid; */
+  text-align: center;
+  margin: 20px 2px;
+  transition: var(--maintransittion);
+}
+.write h2,
+p {
+  color: black;
+}
+.write:hover {
+  transform: translateY(-6px);
+}
+@media screen and (min-width: 805px) {
+  .write {
+    float: left;
+    width: 49%;
+    padding: 10px;
+  }
+}
+@media screen and (min-width: 1220px) {
+  .write {
+    width: 24.5%;
+  }
+}
+
+/* this is for seceond bannar  */
+.offer {
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.333), rgba(0, 0, 0, 0.642)),
+    url() center/cover no-repeat fixed;
+  position: relative;
+}
+.offer-1 {
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  margin: 0;
+  transform: translate(-40%, -50%);
+  text-align: center;
+  letter-spacing: 5px;
+}
+.offer-title {
+  font-family: "Galada", cursive;
+  font-size: 40px;
+  color: rgb(255, 255, 255);
+  margin: 20px 0;
+  text-shadow: 2px 2px 3px black;
+}
+@media screen and (min-width: 805px) {
+  .offer-1 {
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    transform: translate(-50%, -50%);
+  }
+  .offer-title {
+    font-size: 70px;
+    letter-spacing: 20px;
+  }
+}
