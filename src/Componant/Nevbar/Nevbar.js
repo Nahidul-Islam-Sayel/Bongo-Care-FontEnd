@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
+import { Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { userContext } from "../../App";
 import logo from "../image/Logo.jpg";
 import "./Nevbar.css";
 const Nevbar = () => {
-  const[login,setLogin,docLogin, setDocLogin,adminLogin, setAdminLogin]= useContext(userContext);
-console.log(login)
+  const [login, setLogin, docLogin, setDocLogin, adminLogin, setAdminLogin] =
+    useContext(userContext);
+  console.log(login);
 
   const logout = () => {
     setDocLogin(0);
@@ -14,147 +16,81 @@ console.log(login)
     console.log(login);
     sessionStorage.clear();
   };
-  return (
-    <div>
-      <nav class="navbar navbar-light bg-primary navbar-logosite">
-        <a class="navbar-brand text-white nav-logo" href="#">
-          <img src={logo} className="navlogo" alt="" />
-        </a>
-      </nav>
 
-      <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse container" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <NavLink to="/" exact className="nav-link text-light">
-                Home
-              </NavLink>
-            </li>
-           
-            
-            {(sessionStorage.getItem("login")||  login === 1) ? (
+  return (
+    <div className="navbar-container">
+      <Navbar collapseOnSelect expand="lg" bg="white" variant="light">
+        <Navbar.Brand href="#">
+          <img src={logo} className="navlogo" alt="" />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="ml-auto w-100 justify-content-end">
+            {sessionStorage.getItem("login") || login === 1 ? (
               <>
-             
-            <li class="nav-item">
-              <NavLink to="/uploadFile" className="nav-link text-light">
-                Upload File
-              </NavLink>
-            </li>
-                {" "}
-                <li class="nav-item">
-                  <NavLink to="/profile" className="nav-link text-light">
-                    Profile
-                  </NavLink>
-                </li>
-                <li
-                  class="nav-item"
-                  onClick={logout}
-                >
-                  <NavLink to="/" className="nav-link text-light">
-                    Logout
-                  </NavLink>
-                </li>
-              </>
-            ) : (sessionStorage.getItem("Doclogin")||  docLogin === 1) ?( <>
-              {" "}
-              <li class="nav-item">
-                <NavLink to="/profileDoc" className="nav-link text-light">
+                <Nav.Link as={NavLink} to="/" exact>
+                  Home
+                </Nav.Link>
+                <Nav.Link as={NavLink} to="/uploadFile">
+                  Upload File
+                </Nav.Link>
+                <Nav.Link as={NavLink} to="/profile">
                   Profile
-                </NavLink>
-              </li>
-              <li
-                class="nav-item"
-                onClick={logout}
-              >
-                <NavLink to="/" className="nav-link text-light">
+                </Nav.Link>
+                <Nav.Link onClick={logout} as={NavLink} to="/">
                   Logout
-                </NavLink>
-              </li>
-            </>):
-            
-            (sessionStorage.getItem("Admin")||  adminLogin === 1) ?( <>
-              {" "}
-              <li class="nav-item">
-                <NavLink to="/profileAdmin" className="nav-link text-light">
+                </Nav.Link>
+              </>
+            ) : sessionStorage.getItem("Doclogin") || docLogin === 1 ? (
+              <>
+                <Nav.Link as={NavLink} to="/profileDoc">
                   Profile
-                </NavLink>
-              </li>
-              <li class="nav-item">
-                <NavLink to="/doctorDeatails" className="nav-link text-light">
+                </Nav.Link>
+                <Nav.Link onClick={logout} as={NavLink} to="/">
+                  Logout
+                </Nav.Link>
+              </>
+            ) : sessionStorage.getItem("Admin") || adminLogin === 1 ? (
+              <>
+                <Nav.Link as={NavLink} to="/profileAdmin">
+                  Profile
+                </Nav.Link>
+                <Nav.Link as={NavLink} to="/doctorDeatails">
                   Add A Doctor
-                </NavLink>
-              </li>
-              <li
-                class="nav-item"
-                onClick={logout}
-              >
-                <NavLink to="/" className="nav-link text-light">
+                </Nav.Link>
+                <Nav.Link onClick={logout} as={NavLink} to="/">
                   Logout
-                </NavLink>
-              </li>
-            </>)
-            :(
-              <>
-                 <li className="nav-item dropdown">
-                <a  className="nav-link dropdown-toggle text-light"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Blood
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li className="dropdown-item">
-                    <Link to="DonnerReg">Register As A Donor</Link>
-                  </li>
-                  <li className="dropdown-item">
-                    <Link to="FindBlood">Need Blood</Link>
-                  </li>
-                </ul>
-                
-              </li>
-              <li className="nav-item dropdown">
-                <a  className="nav-link dropdown-toggle text-light"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Account
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li className="dropdown-item">
-                    <Link to="signup">Sing Up</Link>
-                  </li>
-                  <li className="dropdown-item">
-                    <Link to="login">Login</Link>
-                  </li>
-                </ul>
-                
-              </li>
-           
+                </Nav.Link>
               </>
-              
+            ) : (
+              <>
+                {" "}
+                <Nav className="ml-auto w-100 justify-content-end">
+                  <Nav.Link as={NavLink} to="/" exact  >
+                    Home
+                  </Nav.Link>
+                  <NavDropdown title="Blood" id="collasible-nav-dropdown">
+                    <NavDropdown.Item as={Link} to="DonnerReg">
+                      Register As A Donor
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="FindBlood">
+                      Need Blood
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                  <NavDropdown title="Account" id="collasible-nav-dropdown">
+                    <NavDropdown.Item as={Link} to="signup">
+                      Sing Up
+                    </NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="login">
+                      Login
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </Nav>
+              </>
             )}
-           
-          </ul>
-            
-        </div>
-      </nav>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     </div>
   );
 };

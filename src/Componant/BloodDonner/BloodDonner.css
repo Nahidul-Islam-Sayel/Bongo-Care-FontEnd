@@ -11,7 +11,6 @@ img {
   display: block;
 }
 
-// iOS Reset
 input {
   appearance: none;
   border-radius: 0;
@@ -29,15 +28,11 @@ input {
   padding: 0.75rem;
 }
 
-.card-image {
+.bloodimg {
   border-radius: 8px;
   overflow: hidden;
-  padding-bottom: 65%;
-  background-image: url("https://assets.codepen.io/285131/coffee_1.jpg");
-  background-repeat: no-repeat;
-  background-size: 150%;
-  background-position: 0 5%;
-  position: relative;
+  height: 200px;
+  color: #00356f;
 }
 
 .card-heading {
@@ -49,6 +44,7 @@ input {
   font-weight: 700;
   color: #735400;
   line-height: 1.222;
+
   small {
     display: block;
     font-size: 0.75em;

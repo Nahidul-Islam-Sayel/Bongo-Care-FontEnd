@@ -5,6 +5,8 @@ import './BloodDonner.css';
 const BloodDonner = () => {
   let navigate = useNavigate();
   const[successfullPayment,setSucessfullPayment]= useState(false);
+  const [visible, setVisible] = useState(false);
+  const [visibleR, setVisibleR] = useState(false);
   const[user,setnewUser]=useState({
     name:"",
     email:"",
@@ -26,7 +28,7 @@ const BloodDonner = () => {
    
     if(name&&email&&phone&&city){
      axios.post('http://localhost:5000/BloodDonner/DonateBlood',user )
-    .then(res=>alert(res.data.message),setSucessfullPayment(true))
+    .then(res=>(res.data.message)==="username and email should be uniqe"? setVisibleR(true): setVisible(true))
     }
 
    
@@ -35,29 +37,73 @@ const BloodDonner = () => {
     successfullPayment===true && navigate("/", { replace: true });
  
   },[successfullPayment])
+  useEffect(() => {
+    if (visible) {
+      const timeout = setTimeout(() => {
+        setVisible(false);
+      }, 1000);
+      
+      return () => clearTimeout(timeout);
+    }
+    
+  }, [visible]);
+  useEffect(() => {
+    if (visibleR) {
+      const timeout = setTimeout(() => {
+        setVisibleR(false);
+      }, 1000);
+      
+      return () => clearTimeout(timeout);
+    }
+    
+  }, [visibleR]);
     return (
         <div>
-           <div className="container">
-           
-      <div className="card">
-        <div className="card-image">	
-          <h2 className="card-heading">
-           Make A Blood Donor <br/>
-            <small> Donate Blood Save Life</small>
-          </h2>
+           <div className="container ">
+           <div
+        className={`fixed inset-0 flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end transition-all duration-500 ${
+          visible ? '' : 'hidden'
+        }`}
+      >
+         <div className="max-w-xl w-full bg-green-400  text-white shadow-lg rounded-lg pointer-events-auto h-10 text-center ">
+        Registration Successful
+       
+       
+      </div>
+      </div>
+      <div
+        className={`fixed inset-0  flex items-end justify-center px-4 py-6 pointer-events-none sm:p-6 sm:items-start sm:justify-end transition-all duration-500 ${
+          visibleR ? '' : 'hidden'
+        }`}
+      >
+         <div className="max-w-xl w-full bg-red-400  text-white shadow-lg rounded-lg pointer-events-auto h-10 text-center ">
+         User already registered
+       
+       
+      </div>
+      </div>
+      <div className="card border border-black">
+        <div className=" bloodimg text-center">	
+        
+        <br /><br />
+          <h2 className="Bongo text-4xl">
+         
+           Make A Blood Donor   </h2><br/>
+           <h2 className="Care text-3xl">Donate Blood Save Life</h2>
+        
         </div>
         <form className="card-form">
-          <div className="input">
-            <input type="text" placeholder="Name"     name="name"  value={user.name}  onChange={handleChange} className="input-field"  required/>
+          <div className="input text-center">
+            <input type="text" placeholder="Name"     name="name"  value={user.name}  onChange={handleChange} className="input-field border-black"   required/>
             
           </div>
               
-                <div className="input">
-            <input type="email" placeholder="Email"    name="email"  value={user.email}  onChange={handleChange} required/>
+            <div className="input">
+            <input type="email" placeholder="Email"    name="email"  value={user.email} className="input-field"   onChange={handleChange} required/>
            
           </div>
           <div className="input">
-            <input type="phone" placeholder="Phone"    name="phone"  value={user.phone}  onChange={handleChange} required/>
+            <input type="phone" placeholder="Phone"    name="phone"  value={user.phone}  className="input-field" onChange={handleChange} required/>
            
           </div>
           <br />
@@ -69,11 +115,12 @@ const BloodDonner = () => {
 <option value=""></option>
   <option value="Sylhet">Sylhet</option>
   <option value="Dhaka">Dhaka</option>
-  <option value="Chittagong">Chittagong.</option>
+  <option value="Chittagong">Chittagong</option>
   <option value="Mymensingh.">Mymensingh</option>
   <option value="Rajshahi.">Rajshahi</option>
-  <option value="Khulna">Khulna</option>
+  <option value="Kulna">Kulna</option>
   <option value="Barisal">Barisal</option>
+  <option value="Comilla">Comilla</option>
 </select>
   
           </div>
@@ -86,6 +133,7 @@ const BloodDonner = () => {
 <option value=""></option>
   <option value="A+">A+</option>
   <option value="A-">A-</option>
+  <option value="B+">B+</option>
   <option value="B+">B-</option>
   <option value="AB+">AB+</option>
   <option value="AB-">AB-</option>

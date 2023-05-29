@@ -6,13 +6,12 @@ import DeleteDoc from "./Componant/AdminProfile/DeleteDoc";
 import BloodDonner from "./Componant/BloodDonner/BloodDonner";
 import FindBlood from "./Componant/BloodDonner/FindBlood";
 import DeleteReport from "./Componant/DeleteReport/DeleteReport";
-import Doctor from "./Componant/Doctor/Doctor";
 import DoctorDeatails from "./Componant/Doctor/DoctorDeatails";
 import DoctorProfile from "./Componant/DoctorsProfile/DoctorProfile";
+import Footer from "./Componant/Footer/Footer";
 import Home from "./Componant/HomePage/Home";
 import Login from "./Componant/LoginPage/Login";
 import Nevbar from "./Componant/Nevbar/Nevbar";
-import Payment from "./Componant/Payment/Payment";
 import EditProfile from "./Componant/Profile/EditProfile";
 import Load from "./Componant/Profile/Load";
 import Profile from "./Componant/Profile/Profile";
@@ -25,30 +24,42 @@ function App() {
   const [Doctorname,setDoctorName] = useState([]);
   const [docLogin, setDocLogin] = useState(0);
   const [adminLogin, setAdminLogin] = useState(0);
+
+
   return (
     <userContext.Provider value={[login,setLogin,docLogin, setDocLogin,givePayment, setPayment,Doctorname,setDoctorName,adminLogin, setAdminLogin]}>
  
       <BrowserRouter>
+      <div className="app-container">
         <Nevbar />
         <Routes>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profileDoc" element={<DoctorProfile />} />
-          <Route path="/profileAdmin" element={<AdminProfile />} />
-          <Route path="/FindBlood" element={<FindBlood/>} />
-          <Route path="/signup" element={<User />} />
-          <Route path="/DonnerReg" element={<BloodDonner/>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/EdiProfile" element={<EditProfile />} />
-          <Route path="/Doctor" element={<Doctor/>} />
-          <Route path="/Payment" element={<Payment/>} />
-          <Route path="/doctorDeatails" element={<DoctorDeatails/>} />
-          <Route path="/uploadFIle" element={<UserUploadFile />} />
-          <Route path="/viewReport/:id" element={<Load />} />
+         {(login||sessionStorage.getItem('normaluser'))?<> <Route path="/profile" element={<Profile />} />
           <Route path="/delete/:id" element={<DeleteReport/>} />
+          <Route path="/uploadFIle" element={<UserUploadFile />} />
+          <Route path="/viewReport/:id" element={<Load />} /> <Route path="/EdiProfile" element={<EditProfile />} /></>:    null }
+        {(docLogin ||sessionStorage.getItem('doctor'))?<><Route path="/profileDoc" element={<DoctorProfile />} />
+          <Route path="/viewReport/:id" element={<Load />} /></>:null }
+         
+ {  (adminLogin||sessionStorage.getItem('admin'))?  <> <Route path="/profileAdmin" element={<AdminProfile />} />
           <Route path="/deleteDoctor/:id" element={<DeleteDoc/>} />
+          <Route path="/doctorDeatails" element={<DoctorDeatails/>} /></>    
+         :null}
+         
+          {/* <Route path="/Payment" element={<Payment/>} /> */}
+         
+         
+         
+          {/* <Route path="/Doctor" element={<Doctor/>} /> */}
+          <Route path="/DonnerReg" element={<BloodDonner/>} />
+          <Route path="/FindBlood" element={<FindBlood/>} />
+{<><Route path="/signup" element={<User />} />
+          <Route path="/login" element={<Login />} /></> }
+       
           <Route path="/" element={<Home />} />
         </Routes>
+      </div>
       </BrowserRouter>
+      <Footer/>
     </userContext.Provider>
   );
 }
